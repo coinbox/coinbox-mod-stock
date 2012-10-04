@@ -6,13 +6,11 @@ class ModuleLoader(BaseModuleLoader):
     name = 'Products Inventory'
 
     def load(self):
-        from cbpos.mod.stock.models.category import Category
-        from cbpos.mod.stock.models.product import Product
+        from cbpos.mod.stock.models import Category, Product  # DiaryEntry
         return [Category, Product]
 
     def test(self):
-        from cbpos.mod.stock.models.category import Category
-        from cbpos.mod.stock.models.product import Product
+        from cbpos.mod.stock.models import Category, Product
     
         session = cbpos.database.session()
     
@@ -22,7 +20,8 @@ class ModuleLoader(BaseModuleLoader):
         cat4 = Category(name='Sub2-Sub1', parent=cat3)
         cat5 = Category(name='Root2', parent=None)
     
-        from cbpos.mod.currency.models.currency import Currency
+        from cbpos.mod.currency.models import Currency
+        
         LL = session.query(Currency).filter_by(id=1).one()
         EUR = session.query(Currency).filter_by(id=3).one()
     
@@ -41,9 +40,7 @@ class ModuleLoader(BaseModuleLoader):
         session.commit()
 
     def menu(self):
-        from cbpos.mod.stock.pages import CategoriesPage
-        from cbpos.mod.stock.pages import ProductsPage
-        from cbpos.mod.stock.pages import StockDiaryPage
+        from cbpos.mod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
         
         return [[{'label': 'Stock', 'image': self.res('images/menu-stock.png')}],
                 [{'parent': 'Stock', 'label': 'Products', 'page': ProductsPage, 'image': self.res('images/menu-products.png')},

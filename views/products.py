@@ -2,12 +2,12 @@ from PySide import QtGui
 
 import cbpos
 
-import cbpos.mod.currency.models.currency as currency
+import cbpos.mod.currency.controllers as currency
 from cbpos.mod.currency.models.currency import Currency
 from cbpos.mod.stock.models.product import Product
 from cbpos.mod.stock.models.category import Category
 
-from cbpos.mod.base.pages import FormPage
+from cbpos.mod.base.views import FormPage
 
 class ProductsPage(FormPage):
     itemClass = Product
@@ -26,7 +26,7 @@ class ProductsPage(FormPage):
                 ("reference", "Reference", QtGui.QLineEdit(), ""),
                 ("code", "Code", QtGui.QLineEdit(), ""),
                 ("price", "Price", price, 0),
-                ("currency", "Currency", QtGui.QComboBox(), currency.get_default()),
+                ("currency", "Currency", QtGui.QComboBox(), currency.default),
                 ("in_stock", "In Stock", in_stock, True),
                 ("quantity", "Quantity", quantity, 0),
                 ("category", "Category", QtGui.QComboBox(), None)

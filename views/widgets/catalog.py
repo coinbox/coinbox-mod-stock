@@ -1,6 +1,6 @@
 import cbpos
 
-from cbpos.mod.base.widgets import Catalog
+from cbpos.mod.base.views.widgets import Catalog
 
 from cbpos.mod.stock.models import Product, Category
 

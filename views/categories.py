@@ -5,7 +5,7 @@ import cbpos
 from cbpos.mod.stock.models.category import Category
 from cbpos.mod.stock.models.product import Product
 
-from cbpos.mod.base.pages import FormPage
+from cbpos.mod.base.views import FormPage
 
 class CategoriesPage(FormPage):
     itemClass = Category
