@@ -2,16 +2,16 @@ from PySide import QtGui
 
 import cbpos
 
-import cbpos.mod.currency.controllers as currency
+from cbpos.mod.stock.controllers import ProductsFormController
 from cbpos.mod.currency.models.currency import Currency
-from cbpos.mod.stock.models.product import Product
-from cbpos.mod.stock.models.category import Category
+from cbpos.mod.stock.models import Product, Category
 
 from cbpos.mod.base.views import FormPage
 
 class ProductsPage(FormPage):
-    itemClass = Product
-    def fields(self):
+    controller = ProductsFormController()
+    
+    def widgets(self):
         price = QtGui.QDoubleSpinBox()
         price.setMinimum(0)
 
@@ -21,34 +21,20 @@ class ProductsPage(FormPage):
         quantity = QtGui.QDoubleSpinBox()
         quantity.setMinimum(0)
 
-        return [("name", "Name", QtGui.QLineEdit(), ""),
-                ("description", "Description", QtGui.QTextEdit(), ""),
-                ("reference", "Reference", QtGui.QLineEdit(), ""),
-                ("code", "Code", QtGui.QLineEdit(), ""),
-                ("price", "Price", price, 0),
-                ("currency", "Currency", QtGui.QComboBox(), currency.default),
-                ("in_stock", "In Stock", in_stock, True),
-                ("quantity", "Quantity", quantity, 0),
-                ("category", "Category", QtGui.QComboBox(), None)
-                ]
+        return (("name", QtGui.QLineEdit()),
+                ("description", QtGui.QTextEdit()),
+                ("reference", QtGui.QLineEdit()),
+                ("code", QtGui.QLineEdit()),
+                ("price", price),
+                ("currency", QtGui.QComboBox()),
+                ("in_stock", in_stock),
+                ("quantity", quantity),
+                ("category", QtGui.QComboBox())
+                )
     
     def onInStockCheckBox(self, event):
         in_stock = self.f["in_stock"].isChecked()
         self.f["quantity"].setEnabled(in_stock)
-    
-    def items(self):
-        session = cbpos.database.session()
-        items = session.query(Product.display, Product).all()
-        return items
-    
-    def canDeleteItem(self, item):
-        return True
-    
-    def canEditItem(self, item):
-        return True
-    
-    def canAddItem(self):
-        return True
     
     def getDataFromControl(self, field):
         if field in ('name', 'reference', 'code'):
@@ -89,6 +75,3 @@ class ProductsPage(FormPage):
                 self.f[field].addItem(*item)
                 if item[1] == data:
                     self.f[field].setCurrentIndex(i+1)
-    
-    def getDataFromItem(self, field, item):
-        return getattr(item, field)

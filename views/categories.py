@@ -2,37 +2,18 @@ from PySide import QtGui
 
 import cbpos
 
-from cbpos.mod.stock.models.category import Category
-from cbpos.mod.stock.models.product import Product
+from cbpos.mod.stock.controllers import CategoriesFormController
+from cbpos.mod.stock.models import Category, Product
 
 from cbpos.mod.base.views import FormPage
 
 class CategoriesPage(FormPage):
-    itemClass = Category
-    def fields(self):
-        return [("name", "Name", QtGui.QLineEdit(), ""),
-                ("parent", "Parent Category", QtGui.QComboBox(), None)
-                ]
+    controller = CategoriesFormController()
     
-    def items(self):
-        session = cbpos.database.session()
-        items = session.query(Category.display, Category).all()
-        return items
-    
-    def canDeleteItem(self, item):
-        session = cbpos.database.session()
-        category_count = session.query(Category).filter(Category.parent == item).count()
-        if category_count != 0:
-            return False
-        product_count = session.query(Product).filter(Product.category == item).count()
-        if product_count != 0:
-            return False
-    
-    def canEditItem(self, item):
-        return True
-    
-    def canAddItem(self):
-        return True
+    def widgets(self):
+        return (("name", QtGui.QLineEdit()),
+                ("parent", QtGui.QComboBox())
+                )
     
     def getDataFromControl(self, field):
         if field in ('name', 'description', 'reference', 'code'):
@@ -62,6 +43,3 @@ class CategoriesPage(FormPage):
             self.f[field].addItem("", None)
             for item in items:
                 self.f[field].addItem(*item)
-    
-    def getDataFromItem(self, field, item):
-        return getattr(item, field)
