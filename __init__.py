@@ -42,7 +42,7 @@ class ModuleLoader(BaseModuleLoader):
     def menu(self):
         from cbpos.mod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
         
-        return [[{'label': 'Stock', 'image': self.res('images/menu-stock.png')}],
-                [{'parent': 'Stock', 'label': 'Products', 'page': ProductsPage, 'image': self.res('images/menu-products.png')},
-                 {'parent': 'Stock', 'label': 'Categories', 'page': CategoriesPage, 'image': self.res('images/menu-categories.png')},
-                 {'parent': 'Stock', 'label': 'Stock Diary', 'page': StockDiaryPage, 'image': self.res('images/menu-stock-diary.png')}]]
+        return [[{'label': 'Stock', 'image': cbpos.res.stock('images/menu-stock.png')}],
+                [{'parent': 'Stock', 'label': 'Products', 'page': ProductsPage, 'image': cbpos.res.stock('images/menu-products.png')},
+                 {'parent': 'Stock', 'label': 'Categories', 'page': CategoriesPage, 'image': cbpos.res.stock('images/menu-categories.png')},
+                 {'parent': 'Stock', 'label': 'Stock Diary', 'page': StockDiaryPage, 'image': cbpos.res.stock('images/menu-stock-diary.png')}]]
