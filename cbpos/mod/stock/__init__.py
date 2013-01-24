@@ -40,9 +40,27 @@ class ModuleLoader(BaseModuleLoader):
         session.commit()
 
     def menu(self):
+        from cbpos.interface import MenuRoot, MenuItem
         from cbpos.mod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
         
-        return [[{'label': 'Stock', 'image': cbpos.res.stock('images/menu-stock.png')}],
-                [{'parent': 'Stock', 'label': 'Products', 'page': ProductsPage, 'image': cbpos.res.stock('images/menu-products.png')},
-                 {'parent': 'Stock', 'label': 'Categories', 'page': CategoriesPage, 'image': cbpos.res.stock('images/menu-categories.png')},
-                 {'parent': 'Stock', 'label': 'Stock Diary', 'page': StockDiaryPage, 'image': cbpos.res.stock('images/menu-stock-diary.png')}]]
+        return [[MenuRoot('stock',
+                          label=cbpos.tr.stock._('Stock'),
+                          icon=cbpos.res.stock('images/menu-stock.png')
+                          )],
+                [MenuItem('products', parent='stock',
+                          label=cbpos.tr.stock._('Products'),
+                          icon=cbpos.res.stock('images/menu-products.png'),
+                          page=ProductsPage
+                          ),
+                 MenuItem('categories', parent='stock',
+                          label=cbpos.tr.stock._('Products'),
+                          icon=cbpos.res.stock('images/menu-products.png'),
+                          page=CategoriesPage
+                          ),
+                 MenuItem('stock-diary', parent='stock',
+                          label=cbpos.tr.stock._('Stock Diary'),
+                          icon=cbpos.res.stock('images/menu-stock-diary.png'),
+                          page=StockDiaryPage
+                          ),
+                 ]
+                ]
