@@ -6,7 +6,7 @@ class ModuleLoader(BaseModuleLoader):
     name = 'Products Inventory'
 
     def load(self):
-        from cbpos.mod.stock.models import Category, Product  # DiaryEntry
+        from cbpos.mod.stock.models import Category, Product, DiaryEntry
         return [Category, Product]
 
     def test(self):
@@ -53,14 +53,14 @@ class ModuleLoader(BaseModuleLoader):
                           page=ProductsPage
                           ),
                  MenuItem('categories', parent='stock',
-                          label=cbpos.tr.stock._('Products'),
-                          icon=cbpos.res.stock('images/menu-products.png'),
+                          label=cbpos.tr.stock._('Categories'),
+                          icon=cbpos.res.stock('images/menu-categories.png'),
                           page=CategoriesPage
                           ),
                  MenuItem('stock-diary', parent='stock',
                           label=cbpos.tr.stock._('Stock Diary'),
                           icon=cbpos.res.stock('images/menu-stock-diary.png'),
                           page=StockDiaryPage
-                          ),
+                          )
                  ]
                 ]

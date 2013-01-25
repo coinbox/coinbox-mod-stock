@@ -2,15 +2,16 @@ from PySide import QtGui
 
 import cbpos
 
+from cbpos.mod.stock.views.widgets import ProductCatalog
+
 from cbpos.mod.stock.models import Product
 
 class StockDiaryPage(QtGui.QWidget):
     def __init__(self):
         super(StockDiaryPage, self).__init__()
         
-        self.products = QtGui.QComboBox()
-        self.products.setEditable(False)
-        self.products.currentIndexChanged.connect(self.onProductChange)
+        self.products = ProductCatalog()
+        self.products.childSelected.connect(self.onProductChange)
         
         self.operations = QtGui.QComboBox()
         self.operations.setEditable(False)
@@ -51,12 +52,7 @@ class StockDiaryPage(QtGui.QWidget):
         self.setItem(None)
 
     def populate(self):
-        session = cbpos.database.session()
-        items = session.query(Product.display, Product).all()
-        self.products.clear()
-        for i, item in enumerate(items):
-            self.products.addItem(*item)
-        self.products.setCurrentIndex(-1)
+        pass
 
     def canEdit(self):
         return (self.item is not None and self.item.in_stock)
@@ -83,10 +79,8 @@ class StockDiaryPage(QtGui.QWidget):
             self.item.quantity = quantity
         return True
 
-    def onProductChange(self):
-        selected_index = self.products.currentIndex()
-        item = self.products.itemData(selected_index)
-        self.setItem(item, False)
+    def onProductChange(self, p):
+        self.setItem(p, False)
 
     def onOperationChange(self):
         operation = 'in' if self.operations.currentIndex() == 0 else 'edit'
