@@ -6,8 +6,8 @@ class ModuleLoader(BaseModuleLoader):
     name = 'Products Inventory'
 
     def load(self):
-        from cbpos.mod.stock.models import Category, Product, DiaryEntry
-        return [Category, Product]
+        from cbpos.mod.stock.models import Category, Product, DiaryEntry, ProductImage
+        return [Category, Product, DiaryEntry, ProductImage]
 
     def test(self):
         from cbpos.mod.stock.models import Category, Product

@@ -4,9 +4,11 @@ import cbpos
 
 from cbpos.mod.stock.controllers import ProductsFormController
 from cbpos.mod.currency.models.currency import Currency
-from cbpos.mod.stock.models import Product, Category
+from cbpos.mod.stock.models import Product, Category, ProductImage
 
 from cbpos.mod.base.views import FormPage
+
+from cbpos.mod.stock.views.widgets import ImagePicker
 
 class ProductsPage(FormPage):
     controller = ProductsFormController()
@@ -29,7 +31,8 @@ class ProductsPage(FormPage):
                 ("currency", QtGui.QComboBox()),
                 ("in_stock", in_stock),
                 ("quantity", quantity),
-                ("category", QtGui.QComboBox())
+                ("category", QtGui.QComboBox()),
+                ("image", ImagePicker())
                 )
     
     def onInStockCheckBox(self, event):
@@ -51,6 +54,15 @@ class ProductsPage(FormPage):
                 data = None
             else:
                 data = self.f[field].itemData(selected_index)
+        elif field == 'image':
+            image = self.f[field].image()
+            path = self.f[field].image_path()
+            if image:
+                data = image
+            elif path:
+                data = ProductImage(path)
+            else:
+                data = None
         return (field, data)
     
     def setDataOnControl(self, field, data):
@@ -75,3 +87,5 @@ class ProductsPage(FormPage):
                 self.f[field].addItem(*item)
                 if item[1] == data:
                     self.f[field].setCurrentIndex(i+1)
+        elif field == 'image':
+            self.f[field].setImage(data)

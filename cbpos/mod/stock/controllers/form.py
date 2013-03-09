@@ -50,7 +50,8 @@ class ProductsFormController(FormController):
                 "currency": (cbpos.tr.stock._("Currency"), currency.default),
                 "in_stock": (cbpos.tr.stock._("In Stock"), True),
                 "quantity": (cbpos.tr.stock._("Quantity"), 0),
-                "category": (cbpos.tr.stock._("Category"), None), 
+                "category": (cbpos.tr.stock._("Category"), None),
+                "image": (cbpos.tr.stock._("Image"), None),
                 }
     
     def items(self):

@@ -1,7 +1,7 @@
 import cbpos
 
 import cbpos.mod.base.models.common as common
-from cbpos.mod.stock.models.diary import DiaryEntry
+from cbpos.mod.stock.models import ProductImage, DiaryEntry
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -15,13 +15,18 @@ class Product(cbpos.database.Base, common.Item):
     description = Column(String(255), nullable=False, default='')
     reference = Column(String(255), nullable=True, unique=True)
     code = Column(String(255), nullable=True, unique=True)
+    
     price = Column(Float, nullable=False, default=0)
-    currency_id = Column(Integer, ForeignKey('currencies.id'))
     _quantity = Column('quantity', Integer, nullable=True, default=None)
+    
+    currency_id = Column(Integer, ForeignKey('currencies.id'))
     category_id = Column(Integer, ForeignKey('categories.id'))
+    
+    image_id = Column(Integer, ForeignKey('productimages.id'))
     
     category = relationship("Category", backref="products")
     currency = relationship("Currency", backref="products")
+    image = relationship("ProductImage", backref="products")
 
     def __init__(self, *args, **kwargs):
         q = None
@@ -33,7 +38,7 @@ class Product(cbpos.database.Base, common.Item):
                 q = None
             del kwargs['in_stock']
         kwargs['_quantity'] = q
-        cbpos.database.Base.__init__(self, *args, **kwargs)
+        super(Product, self).__init__(*args, **kwargs)
 
     @hybrid_property
     def display(self):

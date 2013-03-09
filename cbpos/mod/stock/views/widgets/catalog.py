@@ -1,5 +1,8 @@
 import cbpos
 
+import logging
+logger = logging.getLogger(__name__)
+
 from cbpos.mod.base.views.widgets import Catalog
 
 from cbpos.mod.stock.models import Product, Category
@@ -18,7 +21,8 @@ class ProductCatalog(Catalog):
         query = session.query(Product, Product.name)
         if search is not None:
             query = self.filter(query, search)
-        return query.all()
+        for (p, n) in query:
+            yield (p, n, (p.image.path if p.image else None))
     
     def getChildren(self, parent=None, search=None):
         session = cbpos.database.session()
