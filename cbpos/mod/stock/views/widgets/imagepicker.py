@@ -1,9 +1,7 @@
 from PySide import QtCore, QtGui
 
-import logging
-logger = logging.getLogger(__name__)
-
 import cbpos
+logger = cbpos.get_logger(__name__)
 
 class ImagePicker(QtGui.QPushButton):
     

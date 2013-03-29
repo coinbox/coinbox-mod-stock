@@ -1,7 +1,5 @@
 import cbpos
-
-import logging
-logger = logging.getLogger(__name__)
+logger = cbpos.get_logger(__name__)
 
 from cbpos.mod.base.views.widgets import Catalog
 

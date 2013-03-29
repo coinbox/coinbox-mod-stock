@@ -1,10 +1,8 @@
 import os
 from cStringIO import StringIO
 
-import logging
-logger = logging.getLogger(__name__)
-
 import cbpos
+logger = cbpos.get_logger(__name__)
 
 import cbpos.mod.base.models.common as common
 
