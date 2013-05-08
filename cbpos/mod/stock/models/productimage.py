@@ -16,7 +16,7 @@ class ProductImage(cbpos.database.Base, common.Item):
     id = Column(Integer, primary_key=True)
     filename = Column(String(255), default='')
     filetype = Column(Enum('png', 'jpg'))
-    content = deferred(Column("content", LargeBinary))
+    content = deferred(Column("content", LargeBinary(2**32-1)))
 
     def __init__(self, filename):
         basename = os.path.basename(filename)
