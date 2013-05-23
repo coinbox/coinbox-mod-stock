@@ -7,6 +7,8 @@ from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, Met
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method, Comparator
 
+from cbpos.mod.currency.models import CurrencyValue
+
 class Product(cbpos.database.Base, common.Item):
     __tablename__ = 'products'
 
@@ -16,10 +18,10 @@ class Product(cbpos.database.Base, common.Item):
     reference = Column(String(255), nullable=True, unique=True)
     code = Column(String(255), nullable=True, unique=True)
     
-    price = Column(Float, nullable=False, default=0)
+    price = Column(CurrencyValue(), nullable=False, default=0)
     _quantity = Column('quantity', Integer, nullable=True, default=None)
     
-    currency_id = Column(Integer, ForeignKey('currencies.id'))
+    currency_id = Column(String(3), ForeignKey('currencies.id'))
     category_id = Column(Integer, ForeignKey('categories.id'))
     
     image_id = Column(Integer, ForeignKey('productimages.id'))
