@@ -16,11 +16,10 @@ class ProductCatalog(Catalog):
     
     def getAll(self, search=None):
         session = cbpos.database.session()
-        query = session.query(Product, Product.name)
+        query = session.query(Product)
         if search is not None:
             query = self.filter(query, search)
-        for (p, n) in query:
-            yield (p, n, (p.image.path if p.image else None))
+        return ((p, p.image.path if p.image else None) for p in query)
     
     def getChildren(self, parent=None, search=None):
         session = cbpos.database.session()
@@ -29,5 +28,4 @@ class ProductCatalog(Catalog):
         
         if search is not None:
             product_query = self.filter(product_query, search)
-        return [category_query.all(),
-                product_query.all()]
+        return [category_query, product_query]

@@ -35,11 +35,10 @@ class CategoriesPage(FormPage):
             self.f[field].setText(data)
         elif field == 'parent':
             session = cbpos.database.session()
-            query = session.query(Category.display, Category)
+            query = session.query(Category)
             if data is not None:
                 query = query.filter(Category.id != data.id)
-            items = query.all()
             self.f[field].clear()
             self.f[field].addItem("", None)
-            for item in items:
-                self.f[field].addItem(*item)
+            for item in query:
+                self.f[field].addItem(item.display, item)

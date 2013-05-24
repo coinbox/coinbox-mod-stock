@@ -28,7 +28,7 @@ class DiaryEntry(cbpos.database.Base, common.Item):
     @hybrid_property
     def display(self):
         # TODO arrange the display function, is it unique?
-        return str(self.quantity)+self.operation+'/'+self.product.name
+        return unicode(self.quantity)+self.operation+'/'+self.product.name
     
     @display.expression
     def display(self):

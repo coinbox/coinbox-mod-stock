@@ -72,20 +72,18 @@ class ProductsPage(FormPage):
             self.f[field].setChecked(data)
         elif field == 'currency':
             session = cbpos.database.session()
-            items = session.query(Currency.display, Currency).all()
             self.f[field].clear()
-            for i, item in enumerate(items):
-                self.f[field].addItem(*item)
-                if item[1] == data:
+            for i, item in enumerate(session.query(Currency)):
+                self.f[field].addItem(item.display, item)
+                if item == data:
                     self.f[field].setCurrentIndex(i)
         elif field == 'category':
             session = cbpos.database.session()
-            items = session.query(Category.display, Category).all()
             self.f[field].clear()
             self.f[field].addItem("", None)
-            for i, item in enumerate(items):
-                self.f[field].addItem(*item)
-                if item[1] == data:
+            for i, item in enumerate(session.query(Category)):
+                self.f[field].addItem(item.display, item)
+                if item == data:
                     self.f[field].setCurrentIndex(i+1)
         elif field == 'image':
             self.f[field].setImage(data)

@@ -14,8 +14,7 @@ class CategoriesFormController(FormController):
     
     def items(self):
         session = cbpos.database.session()
-        items = session.query(Category.display, Category).all()
-        return items
+        return session.query(Category)
     
     def canDeleteItem(self, item):
         session = cbpos.database.session()
@@ -56,8 +55,7 @@ class ProductsFormController(FormController):
     
     def items(self):
         session = cbpos.database.session()
-        items = session.query(Product.display, Product).all()
-        return items
+        return session.query(Product)
     
     def canDeleteItem(self, item):
         return True
