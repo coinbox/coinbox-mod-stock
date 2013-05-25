@@ -22,7 +22,7 @@ class ProductImage(cbpos.database.Base, common.Item):
         basename = os.path.basename(filename)
         dummy, ext = os.path.splitext(basename)
         filetype = ext[1:]
-        with open(filename, 'r') as f:
+        with open(filename, 'rb') as f:
             content = f.read()
         
         super(ProductImage, self).__init__(filetype=filetype, content=content, filename=basename)
@@ -39,7 +39,7 @@ class ProductImage(cbpos.database.Base, common.Item):
     def path(self):
         cache = self.cached()
         if not os.path.isfile(cache):
-            with open(cache, 'w') as f:
+            with open(cache, 'wb') as f:
                 f.write(self.content)
         return cache
 
