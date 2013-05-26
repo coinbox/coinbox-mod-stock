@@ -1,6 +1,7 @@
 from PySide import QtGui
 
 import cbpos
+import sys
 
 from cbpos.mod.stock.views.widgets import ProductCatalog
 
@@ -15,11 +16,11 @@ class StockDiaryPage(QtGui.QWidget):
         
         self.operations = QtGui.QComboBox()
         self.operations.setEditable(False)
-        self.operations.addItems(('In', 'Modification'))
+        self.operations.addItems((cbpos.tr.stock._('In'), cbpos.tr.stock._('Modification')))
         self.operations.currentIndexChanged.connect(self.onOperationChange)
 
         self.quantity = QtGui.QDoubleSpinBox()
-        self.quantity.setMinimum(0)
+        self.quantity.setRange(0, sys.maxint)
         
         buttonBox = QtGui.QDialogButtonBox()
         
@@ -35,8 +36,8 @@ class StockDiaryPage(QtGui.QWidget):
         form = QtGui.QFormLayout()
         form.setSpacing(10)
         
-        form.addRow("Operation", self.operations)
-        form.addRow("Quantity", self.quantity)
+        form.addRow(cbpos.tr.stock._("Operation"), self.operations)
+        form.addRow(cbpos.tr.stock._("Quantity"), self.quantity)
 
         layout = QtGui.QVBoxLayout()
         layout.setSpacing(10)

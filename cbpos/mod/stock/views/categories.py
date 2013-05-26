@@ -16,13 +16,9 @@ class CategoriesPage(FormPage):
                 )
     
     def getDataFromControl(self, field):
-        if field in ('name', 'description', 'reference', 'code'):
+        if field == 'name':
             data = self.f[field].text()
-        elif field in ('price', 'quantity'):
-            data = self.f[field].value()
-        elif field == 'in_stock':
-            data = self.f[field].isChecked()
-        elif field in ('currency', 'category'):
+        elif field == 'parent':
             selected_index = self.f[field].currentIndex()
             if selected_index == -1:
                 data = None

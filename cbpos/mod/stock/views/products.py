@@ -1,6 +1,7 @@
 from PySide import QtGui
 
 import cbpos
+import sys
 
 from cbpos.mod.stock.controllers import ProductsFormController
 from cbpos.mod.currency.models.currency import Currency
@@ -15,13 +16,13 @@ class ProductsPage(FormPage):
     
     def widgets(self):
         price = QtGui.QDoubleSpinBox()
-        price.setMinimum(0)
+        price.setRange(0, sys.maxint)
 
         in_stock = QtGui.QCheckBox()
         in_stock.stateChanged.connect(self.onInStockCheckBox)
         
         quantity = QtGui.QDoubleSpinBox()
-        quantity.setMinimum(0)
+        quantity.setRange(0, sys.maxint)
 
         return (("name", QtGui.QLineEdit()),
                 ("description", QtGui.QTextEdit()),
@@ -68,8 +69,16 @@ class ProductsPage(FormPage):
     def setDataOnControl(self, field, data):
         if field in ('name', 'description', 'reference', 'code'):
             self.f[field].setText(data)
+        elif field == 'price':
+            self.f[field].setValue(data)
+        elif field == 'quantity':
+            if data is None:
+                self.f[field].setValue(0)
+            else:
+                self.f[field].setValue(data)
         elif field == 'in_stock':
             self.f[field].setChecked(data)
+            self.f['quantity'].setEnabled(data)
         elif field == 'currency':
             session = cbpos.database.session()
             self.f[field].clear()
