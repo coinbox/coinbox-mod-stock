@@ -4,6 +4,7 @@ from cbpos.modules import BaseModuleLoader
 class ModuleLoader(BaseModuleLoader):
     dependencies = ('base', 'currency')
     name = 'Products Inventory'
+    config = [['stock', {'default_image_size': (200, 200), 'default_image_format': 'jpg'}]]
 
     def load(self):
         from cbpos.mod.stock.models import Category, Product, DiaryEntry

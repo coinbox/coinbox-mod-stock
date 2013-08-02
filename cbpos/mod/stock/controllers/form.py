@@ -10,6 +10,7 @@ class CategoriesFormController(FormController):
     def fields(self):
         return {"name": (cbpos.tr.stock._("Name"), ""),
                 "parent": (cbpos.tr.stock._("Parent Category"), None),
+                "image": (cbpos.tr.stock._("Image"), None),
                 }
     
     def items(self):

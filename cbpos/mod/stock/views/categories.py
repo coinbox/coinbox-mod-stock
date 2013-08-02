@@ -6,13 +6,15 @@ from cbpos.mod.stock.controllers import CategoriesFormController
 from cbpos.mod.stock.models import Category, Product
 
 from cbpos.mod.base.views import FormPage
+from cbpos.mod.base.views.widgets import ImagePicker
 
 class CategoriesPage(FormPage):
     controller = CategoriesFormController()
     
     def widgets(self):
         return (("name", QtGui.QLineEdit()),
-                ("parent", QtGui.QComboBox())
+                ("parent", QtGui.QComboBox()),
+                ("image", ImagePicker())
                 )
     
     def getDataFromControl(self, field):
@@ -24,6 +26,15 @@ class CategoriesPage(FormPage):
                 data = None
             else:
                 data = self.f[field].itemData(selected_index)
+        elif field == 'image':
+            image = self.f[field].image()
+            path = self.f[field].image_path()
+            if image:
+                data = image
+            elif path:
+                data = path
+            else:
+                data = None
         return (field, data)
     
     def setDataOnControl(self, field, data):
@@ -38,3 +49,5 @@ class CategoriesPage(FormPage):
             self.f[field].addItem("", None)
             for item in query:
                 self.f[field].addItem(item.display, item)
+        elif field == 'image':
+            self.f[field].setImage(data)

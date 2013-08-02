@@ -2,6 +2,7 @@ import cbpos
 
 import cbpos.mod.base.models.common as common
 from cbpos.mod.stock.models import DiaryEntry
+from cbpos.mod.base.models import StoredFile
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -28,7 +29,7 @@ class Product(cbpos.database.Base, common.Item):
     
     category = relationship("Category", backref="products")
     currency = relationship("Currency", backref="products")
-    image = relationship("StoredFile")
+    _image = relationship("StoredFile")
 
     def __init__(self, *args, **kwargs):
         q = None
@@ -95,3 +96,22 @@ class Product(cbpos.database.Base, common.Item):
         self._quantity -= value
         d = DiaryEntry()
         d.update(operation='out', quantity=value, product=self)
+
+    @hybrid_property
+    def image(self):
+        return self._image
+    
+    @image.setter
+    def image(self, value):
+        if isinstance(value, basestring):
+            # If value is a path
+            size = cbpos.config["stock", "default_image_size"]
+            format = cbpos.config["stock", "default_image_format"]
+            self._image = StoredFile.image(value , size, format)
+        else:
+            # value is a StoredFile
+            self._image = value
+    
+    @image.deleter
+    def image(self):
+        self._image = None
