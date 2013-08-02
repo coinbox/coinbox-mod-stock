@@ -1,6 +1,7 @@
 from PySide import QtGui
 
 import cbpos
+logger = cbpos.get_logger(__name__)
 
 from cbpos.mod.stock.controllers import CategoriesFormController
 from cbpos.mod.stock.models import Category, Product
@@ -43,11 +44,24 @@ class CategoriesPage(FormPage):
         elif field == 'parent':
             session = cbpos.database.session()
             query = session.query(Category)
-            if data is not None:
-                query = query.filter(Category.id != data.id)
+            
             self.f[field].clear()
             self.f[field].addItem("", None)
-            for item in query:
-                self.f[field].addItem(item.display, item)
+            
+            if self.item is None:
+                for i, item in enumerate(query):
+                    self.f[field].addItem(item.display, item)
+            else:
+                # Remove the category itself from the list of parents
+                query = query.filter(Category.id != self.item.id)
+                
+                selected_index = 0
+                for i, item in enumerate(query):
+                    self.f[field].addItem(item.display, item)
+                    
+                    if item.id == self.item.parent_id:
+                        selected_index = i+1 # Don't forget the first "" item
+                
+                self.f[field].setCurrentIndex(selected_index)
         elif field == 'image':
             self.f[field].setImage(data)
