@@ -1,7 +1,7 @@
 import cbpos
 
 import cbpos.mod.base.models.common as common
-from cbpos.mod.stock.models import ProductImage, DiaryEntry
+from cbpos.mod.stock.models import DiaryEntry
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -24,11 +24,11 @@ class Product(cbpos.database.Base, common.Item):
     currency_id = Column(String(3), ForeignKey('currencies.id'))
     category_id = Column(Integer, ForeignKey('categories.id'))
     
-    image_id = Column(Integer, ForeignKey('productimages.id'))
+    image_id = Column(Integer, ForeignKey('storedfiles.id'))
     
     category = relationship("Category", backref="products")
     currency = relationship("Currency", backref="products")
-    image = relationship("ProductImage", backref="products")
+    image = relationship("StoredFile")
 
     def __init__(self, *args, **kwargs):
         q = None

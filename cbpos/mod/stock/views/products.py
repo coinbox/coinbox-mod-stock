@@ -5,7 +5,8 @@ import sys
 
 from cbpos.mod.stock.controllers import ProductsFormController
 from cbpos.mod.currency.models.currency import Currency
-from cbpos.mod.stock.models import Product, Category, ProductImage
+from cbpos.mod.stock.models import Product, Category
+from cbpos.mod.base.models import StoredFile
 
 from cbpos.mod.base.views import FormPage
 
@@ -61,7 +62,7 @@ class ProductsPage(FormPage):
             if image:
                 data = image
             elif path:
-                data = ProductImage(path)
+                data = StoredFile.image(path)
             else:
                 data = None
         return (field, data)
