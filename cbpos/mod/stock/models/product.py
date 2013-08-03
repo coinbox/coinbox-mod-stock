@@ -80,22 +80,22 @@ class Product(cbpos.database.Base, common.Item):
     @quantity.setter
     def quantity(self, value):
         self._quantity = value
-        d = DiaryEntry()
-        d.update(operation='edit', quantity=value, product=self)
+        d = DiaryEntry(operation='edit', quantity=value)
+        self.diaryentries.append(d)
 
     def quantity_in(self, value):
         if self._quantity is None:
             return
         self._quantity += value
-        d = DiaryEntry()
-        d.update(operation='in', quantity=value, product=self)
+        d = DiaryEntry(operation='in', quantity=value)
+        self.diaryentries.append(d)
 
     def quantity_out(self, value):
         if self._quantity is None:
             return
         self._quantity -= value
-        d = DiaryEntry()
-        d.update(operation='out', quantity=value, product=self)
+        d = DiaryEntry(operation='out', quantity=value)
+        self.diaryentries.append(d)
 
     @hybrid_property
     def image(self):
