@@ -10,7 +10,7 @@ class DiaryEntry(cbpos.database.Base, common.Item):
     __tablename__ = 'stockdiary'
 
     id = Column(Integer, primary_key=True)
-    operation = Column(Enum('in', 'out', 'edit'), nullable=False)
+    operation = Column(Enum('in', 'out', 'edit', name="diary_operation_enum"), nullable=False)
     quantity = Column(Integer, nullable=True)
     date = Column(DateTime, nullable=False, default=func.current_timestamp())
     product_id = Column(Integer, ForeignKey('products.id'))
