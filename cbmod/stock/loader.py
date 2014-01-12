@@ -3,11 +3,11 @@ from cbpos.modules import BaseModuleLoader
 
 class ModuleLoader(BaseModuleLoader):
     def load_models(self):
-        from cbpos.mod.stock.models import Category, Product, DiaryEntry
+        from cbmod.stock.models import Category, Product, DiaryEntry
         return [Category, Product, DiaryEntry]
 
     def test_models(self):
-        from cbpos.mod.stock.models import Category, Product
+        from cbmod.stock.models import Category, Product
     
         session = cbpos.database.session()
     
@@ -17,7 +17,7 @@ class ModuleLoader(BaseModuleLoader):
         cat4 = Category(name='Sub2-Sub1', parent=cat3)
         cat5 = Category(name='Root2', parent=None)
     
-        from cbpos.mod.currency.models import Currency
+        from cbmod.currency.models import Currency
         
         LBP = session.query(Currency).filter_by(id="LBP").one()
         EUR = session.query(Currency).filter_by(id="EUR").one()
@@ -38,7 +38,7 @@ class ModuleLoader(BaseModuleLoader):
 
     def menu(self):
         from cbpos.interface import MenuRoot, MenuItem
-        from cbpos.mod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
+        from cbmod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
         
         return [[MenuRoot('stock',
                           label=cbpos.tr.stock._('Stock'),

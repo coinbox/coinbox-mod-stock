@@ -3,12 +3,12 @@ from PySide import QtGui
 import cbpos
 import sys
 
-from cbpos.mod.stock.controllers import ProductsFormController
-from cbpos.mod.currency.models.currency import Currency
-from cbpos.mod.stock.models import Product, Category
+from cbmod.stock.controllers import ProductsFormController
+from cbmod.currency.models.currency import Currency
+from cbmod.stock.models import Product, Category
 
-from cbpos.mod.base.views import FormPage
-from cbpos.mod.base.views.widgets import ImagePicker
+from cbmod.base.views import FormPage
+from cbmod.base.views.widgets import ImagePicker
 
 class ProductsPage(FormPage):
     controller = ProductsFormController()

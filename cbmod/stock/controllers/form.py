@@ -1,8 +1,8 @@
 import cbpos
 
-from cbpos.mod.stock.models import Product, Category
+from cbmod.stock.models import Product, Category
 
-from cbpos.mod.base.controllers import FormController
+from cbmod.base.controllers import FormController
 
 class CategoriesFormController(FormController):
     cls = Category
@@ -40,7 +40,7 @@ class ProductsFormController(FormController):
     
     def fields(self):
         
-        import cbpos.mod.currency.controllers as currency
+        import cbmod.currency.controllers as currency
         
         return {"name": (cbpos.tr.stock._("Name"), ""),
                 "description": (cbpos.tr.stock._("Description"), ""),

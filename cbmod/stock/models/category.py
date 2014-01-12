@@ -1,7 +1,7 @@
 import cbpos
 
-import cbpos.mod.base.models.common as common
-from cbpos.mod.base.models import StoredFile
+import cbmod.base.models.common as common
+from cbmod.base.models import StoredFile
 
 from sqlalchemy import func, Table, Column, Integer, String, Float, Boolean, MetaData, ForeignKey
 from sqlalchemy.orm import relationship, backref

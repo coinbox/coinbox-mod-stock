@@ -3,9 +3,9 @@ from PySide import QtGui
 import cbpos
 import sys
 
-from cbpos.mod.stock.views.widgets import ProductCatalog
+from cbmod.stock.views.widgets import ProductCatalog
 
-from cbpos.mod.stock.models import Product
+from cbmod.stock.models import Product
 
 class StockDiaryPage(QtGui.QWidget):
     def __init__(self):

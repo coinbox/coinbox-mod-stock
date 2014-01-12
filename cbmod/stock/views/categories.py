@@ -3,11 +3,11 @@ from PySide import QtGui
 import cbpos
 logger = cbpos.get_logger(__name__)
 
-from cbpos.mod.stock.controllers import CategoriesFormController
-from cbpos.mod.stock.models import Category, Product
+from cbmod.stock.controllers import CategoriesFormController
+from cbmod.stock.models import Category, Product
 
-from cbpos.mod.base.views import FormPage
-from cbpos.mod.base.views.widgets import ImagePicker
+from cbmod.base.views import FormPage
+from cbmod.base.views.widgets import ImagePicker
 
 class CategoriesPage(FormPage):
     controller = CategoriesFormController()

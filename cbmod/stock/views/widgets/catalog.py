@@ -1,9 +1,9 @@
 import cbpos
 logger = cbpos.get_logger(__name__)
 
-from cbpos.mod.base.views.widgets import Catalog
+from cbmod.base.views.widgets import Catalog
 
-from cbpos.mod.stock.models import Product, Category
+from cbmod.stock.models import Product, Category
 
 class ProductCatalog(Catalog):
     
