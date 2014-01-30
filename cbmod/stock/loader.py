@@ -41,21 +41,21 @@ class ModuleLoader(BaseModuleLoader):
         from cbmod.stock.views import CategoriesPage, ProductsPage, StockDiaryPage
         
         return [[MenuRoot('stock',
-                          label=cbpos.tr.stock._('Stock'),
+                          label=cbpos.tr.stock_('Stock'),
                           icon=cbpos.res.stock('images/menu-stock.png')
                           )],
                 [MenuItem('products', parent='stock',
-                          label=cbpos.tr.stock._('Products'),
+                          label=cbpos.tr.stock_('Products'),
                           icon=cbpos.res.stock('images/menu-products.png'),
                           page=ProductsPage
                           ),
                  MenuItem('categories', parent='stock',
-                          label=cbpos.tr.stock._('Categories'),
+                          label=cbpos.tr.stock_('Categories'),
                           icon=cbpos.res.stock('images/menu-categories.png'),
                           page=CategoriesPage
                           ),
                  MenuItem('stock-diary', parent='stock',
-                          label=cbpos.tr.stock._('Stock Diary'),
+                          label=cbpos.tr.stock_('Stock Diary'),
                           icon=cbpos.res.stock('images/menu-stock-diary.png'),
                           page=StockDiaryPage
                           )

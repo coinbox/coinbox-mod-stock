@@ -16,7 +16,7 @@ class StockDiaryPage(QtGui.QWidget):
         
         self.operations = QtGui.QComboBox()
         self.operations.setEditable(False)
-        self.operations.addItems((cbpos.tr.stock._('In'), cbpos.tr.stock._('Modification')))
+        self.operations.addItems((cbpos.tr.stock_('In'), cbpos.tr.stock_('Modification')))
         self.operations.currentIndexChanged.connect(self.onOperationChange)
 
         self.quantity = QtGui.QDoubleSpinBox()
@@ -36,8 +36,8 @@ class StockDiaryPage(QtGui.QWidget):
         form = QtGui.QFormLayout()
         form.setSpacing(10)
         
-        form.addRow(cbpos.tr.stock._("Operation"), self.operations)
-        form.addRow(cbpos.tr.stock._("Quantity"), self.quantity)
+        form.addRow(cbpos.tr.stock_("Operation"), self.operations)
+        form.addRow(cbpos.tr.stock_("Quantity"), self.quantity)
 
         layout = QtGui.QVBoxLayout()
         layout.setSpacing(10)

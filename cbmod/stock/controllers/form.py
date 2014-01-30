@@ -8,9 +8,9 @@ class CategoriesFormController(FormController):
     cls = Category
     
     def fields(self):
-        return {"name": (cbpos.tr.stock._("Name"), ""),
-                "parent": (cbpos.tr.stock._("Parent Category"), None),
-                "image": (cbpos.tr.stock._("Image"), None),
+        return {"name": (cbpos.tr.stock_("Name"), ""),
+                "parent": (cbpos.tr.stock_("Parent Category"), None),
+                "image": (cbpos.tr.stock_("Image"), None),
                 }
     
     def items(self):
@@ -42,16 +42,16 @@ class ProductsFormController(FormController):
         
         import cbmod.currency.controllers as currency
         
-        return {"name": (cbpos.tr.stock._("Name"), ""),
-                "description": (cbpos.tr.stock._("Description"), ""),
-                "reference": (cbpos.tr.stock._("Reference"), ""),
-                "code": (cbpos.tr.stock._("Code"), ""),
-                "price": (cbpos.tr.stock._("Price"), 0),
-                "currency": (cbpos.tr.stock._("Currency"), currency.default),
-                "in_stock": (cbpos.tr.stock._("In Stock"), True),
-                "quantity": (cbpos.tr.stock._("Quantity"), 0),
-                "category": (cbpos.tr.stock._("Category"), None),
-                "image": (cbpos.tr.stock._("Image"), None),
+        return {"name": (cbpos.tr.stock_("Name"), ""),
+                "description": (cbpos.tr.stock_("Description"), ""),
+                "reference": (cbpos.tr.stock_("Reference"), ""),
+                "code": (cbpos.tr.stock_("Code"), ""),
+                "price": (cbpos.tr.stock_("Price"), 0),
+                "currency": (cbpos.tr.stock_("Currency"), currency.default),
+                "in_stock": (cbpos.tr.stock_("In Stock"), True),
+                "quantity": (cbpos.tr.stock_("Quantity"), 0),
+                "category": (cbpos.tr.stock_("Category"), None),
+                "image": (cbpos.tr.stock_("Image"), None),
                 }
     
     def items(self):
