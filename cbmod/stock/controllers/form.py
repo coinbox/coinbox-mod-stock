@@ -19,12 +19,19 @@ class CategoriesFormController(FormController):
     
     def canDeleteItem(self, item):
         session = cbpos.database.session()
+        
+        # Check if it has a sub-category
         category_count = session.query(Category).filter(Category.parent == item).count()
         if category_count != 0:
             return False
+        
+        # Check if it has products
         product_count = session.query(Product).filter(Product.category == item).count()
         if product_count != 0:
             return False
+        
+        # If not we can delete it
+        return True
     
     def canEditItem(self, item):
         return True
