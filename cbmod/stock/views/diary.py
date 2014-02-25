@@ -5,9 +5,11 @@ import sys
 
 from cbmod.stock.views.widgets import ProductCatalog
 
+from cbmod.base.views import BasePage
+
 from cbmod.stock.models import Product
 
-class StockDiaryPage(QtGui.QWidget):
+class StockDiaryPage(BasePage):
     def __init__(self):
         super(StockDiaryPage, self).__init__()
         
@@ -48,12 +50,10 @@ class StockDiaryPage(QtGui.QWidget):
         
         self.setLayout(layout)
 
-        self.populate()
-
         self.setItem(None)
 
     def populate(self):
-        pass
+        self.products.populate()
 
     def canEdit(self):
         return (self.item is not None and self.item.in_stock)
